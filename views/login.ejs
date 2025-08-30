@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Express App</title>
+    <link href="/index.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="text-center">
+                <div class="auth-title"><%= title %></div>
+                <div class="auth-subtitle">계정에 로그인하여 계속하세요</div>
+            </div>
+            
+            <% if (error) { %>
+                <div class="alert alert-error">
+                    <span>⚠️</span>
+                    <%= error %>
+                </div>
+            <% } %>
+            
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="username" class="form-label">사용자명</label>
+                    <input type="text" id="username" name="username" class="form-input" placeholder="사용자명을 입력하세요" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">비밀번호</label>
+                    <input type="password" id="password" name="password" class="form-input" placeholder="비밀번호를 입력하세요" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    로그인하기
+                </button>
+            </form>
+            
+            <div class="text-center mt-auto">
+                <a href="/register" class="btn-secondary">
+                    <span>👤</span>
+                    계정이 없으신가요? 회원가입
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 마이크로 인터랙션 추가
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // 폼 제출 애니메이션
+        document.querySelector('form').addEventListener('submit', function() {
+            const submitBtn = document.querySelector('.btn-primary');
+            submitBtn.innerHTML = '<div class="spinner"></div> 로그인 중...';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>

@@ -3,10 +3,34 @@
   "version": "1.0.0",
   "description": "Simple Node.js application",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "start": "node app.js"
+    "start": "node bin/www/index.js",
+    "dev": "nodemon bin/www/index.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "dependencies": {
-    "express": "^4.18.0"
+    "bcrypt": "^6.0.0",
+    "ejs": "^3.1.10",
+    "express": "^4.18.0",
+    "express-session": "^1.18.2",
+    "mysql2": "^3.14.3"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^6.3.0"
+  },
+  "jest": {
+    "extensionsToTreatAsEsm": [
+      ".js"
+    ],
+    "globals": {
+      "jest": true
+    },
+    "transform": {},
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
   }
 }

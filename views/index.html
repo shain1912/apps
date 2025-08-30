@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express 강의</title>
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <h1>Express 강의입니다</h1>
+            <p>Node.js Express로 REST API 만들기 - 모던 웹 개발의 핵심 기술을 배워보세요</p>
+            <a href="#learn" class="cta-button">시작하기 →</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="intro" id="learn">
+            <h2>배우는 내용</h2>
+            <div class="topics">
+                <div class="topic">
+                    <h3>MVC 패턴</h3>
+                    <p>Model, View, Controller 구조로 코드 분리</p>
+                </div>
+                <div class="topic">
+                    <h3>REST API</h3>
+                    <p>CRUD 기능을 RESTful하게 구현</p>
+                </div>
+                <div class="topic">
+                    <h3>MySQL 연동</h3>
+                    <p>데이터베이스와 Express 앱 연결</p>
+                </div>
+                <div class="topic">
+                    <h3>ES Modules</h3>
+                    <p>import/export로 모던 JavaScript 사용</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="api-section">
+            <h2>API 엔드포인트</h2>
+            <div class="endpoints">
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/users</span>
+                    <span class="desc">모든 도시 조회</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/users/:id</span>
+                    <span class="desc">특정 도시 조회</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/users</span>
+                    <span class="desc">새 도시 추가</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method put">PUT</span>
+                    <span class="path">/api/users/:id</span>
+                    <span class="desc">도시 정보 수정</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method delete">DELETE</span>
+                    <span class="path">/api/users/:id</span>
+                    <span class="desc">도시 삭제</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>포트 3000에서 실행 중: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+    </footer>
+</body>
+</html>

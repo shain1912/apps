@@ -1,0 +1,109 @@
+<%- include('partials/header') %>
+
+<h1><%= title %></h1>
+
+<div class="alert alert-info">
+    <strong>🎯 학습 목표:</strong> <%= message %>
+</div>
+
+<h2>📊 EJS 템플릿 엔진 특징</h2>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
+    <div class="card">
+        <h3>🔧 간단한 문법</h3>
+        <ul>
+            <li><code>&lt;%= %&gt;</code> - 값 출력 (HTML 이스케이프)</li>
+            <li><code>&lt;%- %&gt;</code> - 값 출력 (HTML 그대로)</li>
+            <li><code>&lt;% %&gt;</code> - JavaScript 코드 실행</li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h3>🧩 템플릿 상속</h3>
+        <ul>
+            <li><code>&lt;%- include('partials/header') %&gt;</code></li>
+            <li>재사용 가능한 컴포넌트</li>
+            <li>유지보수성 향상</li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h3>💡 동적 컨텐츠</h3>
+        <ul>
+            <li>서버 데이터를 HTML에 바인딩</li>
+            <li>조건문과 반복문 지원</li>
+            <li>실시간 데이터 렌더링</li>
+        </ul>
+    </div>
+</div>
+
+<h2>📝 최근 블로그 포스트</h2>
+
+<% if (posts && posts.length > 0) { %>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem;">
+        <% posts.slice(0, 3).forEach(post => { %>
+            <div class="card">
+                <h3><a href="/posts/<%= post.id %>" style="text-decoration: none; color: #495057;"><%= post.title %></a></h3>
+                <div class="meta">
+                    👤 <strong><%= post.author %></strong> | 
+                    📅 <%= post.date %> | 
+                    👁️ <%= post.views %>회
+                </div>
+                <p style="margin: 1rem 0; color: #6c757d;">
+                    <%= post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content %>
+                </p>
+                <div class="tags">
+                    <% post.tags.forEach(tag => { %>
+                        <a href="/posts?tag=<%= tag %>" class="tag">#<%= tag %></a>
+                    <% }); %>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+<% } else { %>
+    <div class="alert alert-info">
+        <p>아직 포스트가 없습니다. <a href="/create-post">첫 번째 포스트를 작성해보세요!</a></p>
+    </div>
+<% } %>
+
+<div style="margin: 3rem 0; text-align: center;">
+    <a href="/posts" class="btn">모든 포스트 보기 →</a>
+    <a href="/create-post" class="btn btn-secondary">새 포스트 작성</a>
+</div>
+
+<h2>🔍 EJS vs JSON 비교</h2>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+    <div class="card">
+        <h3>🎨 EJS 템플릿 (현재 페이지)</h3>
+        <ul>
+            <li>✅ 사용자 친화적인 HTML</li>
+            <li>✅ SEO 최적화</li>
+            <li>✅ 서버 사이드 렌더링</li>
+            <li>✅ 직관적인 데이터 표시</li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h3>📊 JSON API</h3>
+        <ul>
+            <li>⚡ 빠른 데이터 전송</li>
+            <li>🔗 API 클라이언트용</li>
+            <li>📱 모바일 앱 연동</li>
+            <li>🛠️ 개발자 도구용</li>
+        </ul>
+        <a href="/api/posts" class="btn btn-secondary" style="margin-top: 1rem;">JSON 데이터 보기</a>
+    </div>
+</div>
+
+<div class="alert alert-info">
+    <h4>💡 실습 해보기</h4>
+    <ol>
+        <li>개발자 도구에서 페이지 소스 확인</li>
+        <li><code>/api/posts</code>와 <code>/posts</code> 비교</li>
+        <li>새 포스트 작성 후 결과 확인</li>
+        <li>검색과 태그 필터링 테스트</li>
+    </ol>
+</div>
+
+<%- include('partials/footer') %>

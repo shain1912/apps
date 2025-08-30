@@ -1,0 +1,53 @@
+<%- include('../partials/header') %>
+
+<h1>📝 블로그 포스트 (<%= posts.length %>개)</h1>
+
+<!-- 검색 및 필터 -->
+<form class="search-form" method="GET">
+    <input type="text" name="search" placeholder="포스트 검색..." 
+           value="<%= searchQuery %>" class="form-control" style="flex: 1;">
+    <select name="tag" class="form-control">
+        <option value="">모든 태그</option>
+        <% allTags.forEach(tag => { %>
+            <option value="<%= tag %>" <%= selectedTag === tag ? 'selected' : '' %>>#<%= tag %></option>
+        <% }); %>
+    </select>
+    <button type="submit" class="btn">검색</button>
+    <a href="/posts" class="btn btn-secondary">초기화</a>
+</form>
+
+<!-- 포스트 목록 -->
+<% if (posts.length > 0) { %>
+    <% posts.forEach(post => { %>
+        <article class="card">
+            <h2><a href="/posts/<%= post.id %>" style="text-decoration: none; color: #495057;"><%= post.title %></a></h2>
+            <div class="meta">
+                👤 <strong><%= post.author %></strong> | 
+                📅 <%= post.date %> | 
+                👁️ <%= post.views %>회
+            </div>
+            <p style="margin: 1rem 0; color: #6c757d;">
+                <%= post.content.length > 200 ? post.content.substring(0, 200) + '...' : post.content %>
+            </p>
+            <div class="tags">
+                <% post.tags.forEach(tag => { %>
+                    <a href="/posts?tag=<%= tag %>" class="tag">#<%= tag %></a>
+                <% }); %>
+            </div>
+            <div style="margin-top: 1rem;">
+                <a href="/posts/<%= post.id %>" class="btn">자세히 보기 →</a>
+            </div>
+        </article>
+    <% }); %>
+<% } else { %>
+    <div class="alert alert-info">
+        <h3>😅 검색 결과가 없습니다</h3>
+        <p>다른 검색어를 시도해보시거나 <a href="/posts">전체 포스트</a>를 확인해보세요.</p>
+    </div>
+<% } %>
+
+<div style="text-align: center; margin: 2rem 0;">
+    <a href="/create-post" class="btn">새 포스트 작성 ✏️</a>
+</div>
+
+<%- include('../partials/footer') %>

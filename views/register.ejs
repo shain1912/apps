@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Express App</title>
+    <link href="/index.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="text-center">
+                <div class="auth-title"><%= title %></div>
+                <div class="auth-subtitle">새 계정을 만들어 시작하세요</div>
+            </div>
+            
+            <% if (error) { %>
+                <div class="alert alert-error">
+                    <span>⚠️</span>
+                    <%= error %>
+                </div>
+            <% } %>
+            
+            <% if (success) { %>
+                <div class="alert alert-success">
+                    <span>✅</span>
+                    <%= success %>
+                </div>
+            <% } %>
+            
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="username" class="form-label">사용자명</label>
+                    <input type="text" id="username" name="username" class="form-input" placeholder="고유한 사용자명을 입력하세요" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name" class="form-label">이름</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="실명을 입력하세요" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">이메일</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="이메일 주소를 입력하세요" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">비밀번호</label>
+                    <input type="password" id="password" name="password" class="form-input" placeholder="최소 6자 이상" required minlength="6">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">비밀번호 확인</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="비밀번호를 다시 입력하세요" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    계정 만들기
+                </button>
+            </form>
+            
+            <div class="text-center mt-auto">
+                <a href="/login" class="btn-secondary">
+                    <span>🔐</span>
+                    이미 계정이 있으신가요? 로그인
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 비밀번호 확인 검증
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        function validatePassword() {
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity('비밀번호가 일치하지 않습니다.');
+                confirmPassword.parentElement.style.borderColor = 'var(--error-color)';
+            } else {
+                confirmPassword.setCustomValidity('');
+                confirmPassword.parentElement.style.borderColor = 'var(--success-color)';
+            }
+        }
+
+        password.addEventListener('input', validatePassword);
+        confirmPassword.addEventListener('input', validatePassword);
+
+        // 마이크로 인터랙션
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // 폼 제출 애니메이션
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+                return;
+            }
+            
+            const submitBtn = document.querySelector('.btn-primary');
+            submitBtn.innerHTML = '<div class="spinner"></div> 계정 생성 중...';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>
